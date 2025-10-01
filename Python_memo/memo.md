@@ -1,17 +1,21 @@
 ## 一、小东西 
 1. 转义字符：右斜杠`\`
-2. 保留整数的除法：`//`
-3. 文件开头
-   ```
-   #!/usr/bin/env python3
-   # -*- coding: utf-8 -*-
-   ```
-   ![alt text](image.png)    
+2. 保留整数的除法：`//`     
+
+3. 文件开头    
+
+```
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+```
+![alt text](image.png)     
+
 4. f-string：
-    ```
-    a=1.123456
-    print(f"保留两位小数r = {r:.2f}")
-    ```
+```
+a=1.123456
+print(f"保留两位小数r = {r:.2f}")
+```    
+  
 5. `range(x)`：0 ~ x-1的整数序列
 
 
@@ -101,7 +105,9 @@ def power(x, n=2):
     ...
 ```
 **默认参数必须指向不变对象，否则多次调用会改变默认参数的值**
-#### 4.可变参数
+
+#### 4.可变参数 (传入0个或任意个参数)    
+可变参数在函数调用时自动组装为一个tuple
 ```
 def calc(*numbers):
     sum = 0
@@ -109,3 +115,50 @@ def calc(*numbers):
         sum = sum + n * n
     return sum
 ```    
+使用方法一：  
+`calc(1, 2, 3)`    
+使用方法二：    
+```
+>>> nums = [1, 2, 3]
+>>> calc(*nums)
+```
+nums表示把nums这个list的所有元素作为可变参数传进去
+
+#### 5. 关键字参数 (传入0个或任意个含参数名的参数)   
+关键字参数在函数内部自动组装为一个dict     
+```
+def person(name, age, **kw):
+    print('name:', name, 'age:', age, 'other:', kw)
+```    
+
+```
+>>> person('Michael', 30)
+name: Michael age: 30 other: {}
+
+>>> person('Adam', 45, gender='M', job='Engineer')
+name: Adam age: 45 other: {'gender': 'M', 'job': 'Engineer'}
+```     
+使用方法一：    
+```
+>>> extra = {'city': 'Beijing', 'job': 'Engineer'}
+>>> person('Jack', 24, city=extra['city'], job=extra['job'])
+name: Jack age: 24 other: {'city': 'Beijing', 'job': 'Engineer'}
+```    
+使用方法二：
+```
+>>> extra = {'city': 'Beijing', 'job': 'Engineer'}
+>>> person('Jack', 24, **extra)
+name: Jack age: 24 other: {'city': 'Beijing', 'job': 'Engineer'}
+```     
+
+#**命名关键字参数**
+```
+def person(name, age, **kw):
+    if 'city' in kw:
+        # 有city参数
+        pass
+    if 'job' in kw:
+        # 有job参数
+        pass
+    print('name:', name, 'age:', age, 'other:', kw)
+```
